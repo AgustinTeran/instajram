@@ -1,8 +1,9 @@
-var {sequelize} = require("./db/db")
-var server = require("./server/server")
-require("dotenv").config()
+require("pg")
+var {sequelize} = require("./src/db/db")
+var server = require("./src/server/server")
+
 
 server.listen(3001,async() => {
-    await sequelize.sync({alter:true})
+    await sequelize.sync({force:true})
     console.log("Listening on port 3001");
 })

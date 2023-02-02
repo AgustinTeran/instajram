@@ -5,7 +5,10 @@ var cors = require("cors")
 var router = require("./routes/router")
 
 server.use(express.json())
-server.use(cors())
+server.use(cors({
+    origin: "https://instajram.vercel.app",
+    credentials: true
+}))
   
 
 server.use("/",router)
