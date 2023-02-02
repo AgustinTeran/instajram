@@ -1,0 +1,50 @@
+.navSeguidores{
+    max-width: 600px;
+    margin: 0 auto;
+    border-bottom: solid 1px gray;
+    padding-bottom: 16px;
+
+    div{
+        display: flex;
+        padding: 15px;
+        gap: 30px;
+        
+
+        button{
+            background-color: transparent;
+            border: none;
+            font-size: 22px;
+            color: rgb(40, 40, 40);
+            cursor: pointer;
+        }
+    
+        h4{
+            font-size: 27px;
+            color: rgb(40, 40, 40);
+        }
+    }
+
+    ul{
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        padding: 0;
+        margin-top: 6px;
+        font-size: 20px;
+    
+        li{
+            cursor: pointer;
+            font-weight: bold;
+        }
+    
+        a{
+            color: rgb(150, 150, 150);
+            text-decoration: none;
+        }
+        
+    
+        .active{
+            color: black !important;
+        }
+       }
+}

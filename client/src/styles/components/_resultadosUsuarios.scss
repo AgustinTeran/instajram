@@ -1,0 +1,12 @@
+.resultadosUsuarios{
+    display: flex;
+    flex-direction: column;
+    max-width: 525px;
+    padding: 10px;
+    gap: 10px;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    h3{
+        text-align: center;
+    }
+}

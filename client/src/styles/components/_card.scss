@@ -1,0 +1,27 @@
+.cardContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
+    h5{
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    input{
+        background-color: $blue;
+        color: $mainColor;
+        padding: 2px 9px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input:hover{
+        background-color: $darkBlue;
+    }
+
+    input:active{
+        background-color: $darkBlue;
+    }
+}
