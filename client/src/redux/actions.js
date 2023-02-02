@@ -1,6 +1,6 @@
 import axios from "axios"
 
-var back = axios.create({baseURL:"http://192.168.1.14:3001/"})
+var back = axios.create({baseURL:"https://instajram-l8bb.vercel.app"})
 
 export function CreateUser(obj){
     return function (dispatch){
