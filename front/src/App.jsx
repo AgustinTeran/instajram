@@ -42,13 +42,13 @@ function App() {
   },[auth.error])
 
 
-  if(localStorage.getItem("token") && !auth.user){
-    return (
-    <div data-theme={theme}>
-      <BigLoader/>
-    </div>
-    )
-  }
+  // if(localStorage.getItem("token") && !auth.user){
+  //   return (
+  //   <div data-theme={theme}>
+  //     <BigLoader/>
+  //   </div>
+  //   )
+  // }
   
   return (
     <div className="min-h-screen h-full" data-theme={theme}>
