@@ -80,7 +80,7 @@ export default function UsersRoutes({theme,setTheme,auth}){
         <Profile/>
       </Route>
     </Switch>
-    <Redirect to={"/"}/>
+    {/* <Redirect to={"/"}/> */}
   </>
   )
 }
