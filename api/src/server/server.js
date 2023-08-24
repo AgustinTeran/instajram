@@ -16,22 +16,12 @@ server.use("/",router)
 
 var httpServer = require("http").createServer(server)
 
-var {Server} = require("socket.io")
-var io = new Server(httpServer,{
-    cors: "*"
-})
-
-// io.use((socket, next) => {
-//     const user = socket.handshake.auth.id;
-//     if (!user) {
-//       return next(new Error("invalid username"));
-//     }
-//     socket.user = user;
-//     next();
-//   });
-
-var manejadorDeSockets = require("../socket.io")
-manejadorDeSockets(io)
+// var {Server} = require("socket.io")
+// var io = new Server(httpServer,{
+//     cors: "*"
+// })
+// var manejadorDeSockets = require("../socket.io")
+// manejadorDeSockets(io)
 
 
 module.exports = httpServer

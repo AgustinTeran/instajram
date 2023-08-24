@@ -27,11 +27,11 @@ function App() {
     } 
   },[])
 
-  useEffect(() => {
-    if(auth.user){
-      onConect(auth.user.id).emit("getUserOnline")
-    }
-  },[auth.user])
+  // useEffect(() => {
+  //   if(auth.user){
+  //     onConect(auth.user.id).emit("getUserOnline")
+  //   }
+  // },[auth.user])
 
   useEffect(() => {
     if(auth.error && auth.error === "No autorizado"){
