@@ -29,69 +29,100 @@ route.get("/",async(req,res) => {
     }   
 })
 
+
+
 route.get("/perfil",autenticacionToken,async(req,res) => {
-    try {
-
-        var {name} = req.query
-
-        if(name){
-            var perfil = await sequelize.models.users.findOne({
-                where: {
-                    name
-                },
-                include: [{model: sequelize.models.users, as: "sigueA", attributes: ["name"]}]
-            })
-    
-            var seguidores = await sequelize.models.users.findAll({
-                include: [{
-                    model: sequelize.models.users,
-                    as: "sigueA",
-                    attributes: ["name"],
-                    where: {
-                        name
-                    }
-                    }],
-               })
-
-        }else{
-            var {name} = req.user
+ try {
+           var {id} = req.user
 
 
-            var perfil = await sequelize.models.users.findByPk(name,{
-                include: [{model: sequelize.models.users, as: "sigueA", attributes: ["name"]}]
+
+            var perfil = await sequelize.models.users.findByPk(id,{
+                include: [{model: sequelize.models.users, as: "sigueA", attributes: ["id","name"]}]
             })
 
             var seguidores = await sequelize.models.users.findAll({
                 include: [{
                     model: sequelize.models.users,
                      as: "sigueA",
-                    attributes: ["email"],
+                    attributes: ["id","name"],
                     where: {
-                        name
+                        id
                     }
                     }],
                })
-        }
+
+               perfil = {
+                id: perfil.id,
+                name: perfil.name,
+                email: perfil.email,
+                sigueA: perfil.sigueA.map(e => {
+                    return ({
+                        id: e.id,
+                        name: e.name
+                    })
+                }),
+                seguidoPor: seguidores.map(e => {
+                    return ({
+                        id: e.id,
+                        name: e.name
+                    })
+                })
+            }
+    
+            res.send(perfil)
+    } 
+     catch (error) {
+        res.send(error.message)
+    }
+})
+
+route.get("/:id",async(req,res) => {
+    var {id} = req.params
+    
+    try {
+        var perfil = await sequelize.models.users.findOne({
+            where: {
+                id
+            },
+            include: [{model: sequelize.models.users, as: "sigueA", attributes: ["id","name"]}]
+        })
+        
+    
+        var seguidores = await sequelize.models.users.findAll({
+            include: [{
+                model: sequelize.models.users,
+                as: "sigueA",
+                attributes: ["id","name"],
+                where: {
+                    id
+                }
+                }],
+           })
 
         perfil = {
+            id: perfil.id,
             name: perfil.name,
             email: perfil.email,
             sigueA: perfil.sigueA.map(e => {
                 return ({
+                    id: e.id,
                     name: e.name
                 })
             }),
             seguidoPor: seguidores.map(e => {
                 return ({
+                    id: e.id,
                     name: e.name
                 })
             })
         }
-
         res.send(perfil)
     } catch (error) {
         res.send(error.message)
     }
+
+    
 })
 
 
@@ -113,16 +144,16 @@ route.post("/",async(req,res) => {
             }
         })
 
-        if(existe) return res.send("")
+        if(existe) throw new Error("Ya existe un usuario con ese nombre o email")
         
         var user = await sequelize.models.users.create({email,name,password})
 
         // Token
-        var token = jwt.sign({email,name},TOKEN_SECRETO)
+        var token = jwt.sign({email,name,id: user.id},TOKEN_SECRETO)
 
         res.send(token)
     } catch (error) {
-        res.send(error.message)
+        res.status(400).send({status: 400,message: error.message})
     }
 })
 
@@ -135,8 +166,10 @@ route.post("/auth",async(req,res) => {
             }
         })
 
+        if(!user)  throw new Error("usuario no encontrado")
+
         if(await bcrypt.compare(password,user.password)){
-            var token = jwt.sign({email,name: user.name},TOKEN_SECRETO)
+            var token = jwt.sign({email,name: user.name,id: user.id},TOKEN_SECRETO)
 
             res.send(token)
         }else{
@@ -144,21 +177,21 @@ route.post("/auth",async(req,res) => {
         }
 
     } catch (error) {
-        res.status(401).send(error.message)
+        res.status(401).send({message: error.message,status: 401})
     }
 })
 
 route.post("/follow",autenticacionToken,async(req,res) => {
     try {
-        var {name,followName} = req.body
+        var {id,followId} = req.body
 
-        var {name: tokenName} = req.user
-        if(tokenName !== name) return res.status(401).send("No autorizado")
+        var {id: tokenId} = req.user
+        if(tokenId !== id) return res.status(401).send("No autorizado")
 
 
-        var usuario = await sequelize.models.users.findByPk(name)
+        var usuario = await sequelize.models.users.findByPk(id)
 
-       await usuario.addSigueA(followName)
+       await usuario.addSigueA(followId)
        res.send("SIGUIENDO")
     } catch (error) {
         res.send(error.message)
@@ -168,15 +201,15 @@ route.post("/follow",autenticacionToken,async(req,res) => {
 
 route.delete("/unfollow",autenticacionToken,async(req,res) => {
     try {
-        var {name,followName} = req.query
+        var {id,followId} = req.query
 
-        var {name: tokenName} = req.user
+        var {id: tokenId} = req.user
 
-        if(tokenName != name) return res.status(401).send("No autorizado")
+        if(tokenId != id) return res.status(401).send("No autorizado")
 
-        var usuario = await sequelize.models.users.findByPk(name)
+        var usuario = await sequelize.models.users.findByPk(id)
 
-       await usuario.removeSigueA(followName)
+       await usuario.removeSigueA(followId)
        res.send("Dejado de seguir")
     } catch (error) {
         res.send(error.message)

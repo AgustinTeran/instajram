@@ -27,12 +27,14 @@ var sequelize = new Sequelize({
 
 
 var users = require("./models/users")
-
 users(sequelize)
 
+var mensajes = require("./models/mensajes")
+mensajes(sequelize)
+
 sequelize.models.users.belongsToMany(sequelize.models.users,{through: "followers",as: "sigueA"})
-
-
+sequelize.models.users.hasMany(sequelize.models.mensajes)
+sequelize.models.mensajes.belongsTo(sequelize.models.users)
 
 module.exports = {
     sequelize,

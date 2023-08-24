@@ -4,6 +4,6 @@ var server = require("./src/server/server")
 
 
 server.listen(3001,async() => {
-    await sequelize.sync({force:true})
+    await sequelize.sync({alter: true})
     console.log("Listening on port 3001");
 })
