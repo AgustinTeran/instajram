@@ -6,7 +6,7 @@ import messageHandler from "./handlers/message"
 
 
 export function onConect(id){
-  const socket = io("http://localhost:3001",{
+  const socket = io("https://instajram-l8bb.vercel.app",{
     query: {
       id
     }
