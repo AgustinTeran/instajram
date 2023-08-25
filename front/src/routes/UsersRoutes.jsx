@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Nav from "../components/layout/Nav";
 import Home from "../pages/home";
 import { useSelector } from "react-redux";
@@ -61,6 +61,9 @@ export default function UsersRoutes({theme,setTheme,auth}){
           <Nav setTheme={setTheme} theme={theme}/>
           <Chat />
         </Route>
+        <Route path={"*"} >
+          <Redirect to={"/"}/>
+        </Route>
       </Switch>
     )
   }
@@ -78,6 +81,9 @@ export default function UsersRoutes({theme,setTheme,auth}){
       <Route exact path={"/profile/:id"}>
         <Nav setTheme={setTheme} theme={theme}/>
         <Profile/>
+      </Route>
+      <Route path={"*"} >
+        <Redirect to={"/"}/>
       </Route>
     </Switch>
     {/* <Redirect to={"/"}/> */}
