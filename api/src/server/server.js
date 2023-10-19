@@ -18,7 +18,11 @@ var httpServer = require("http").createServer(server)
 
 var {Server} = require("socket.io")
 var io = new Server(httpServer,{
-    cors: "*",
+    cors: {
+        origin: "*",
+        methods: ["GET","POST"]
+    },
+    
     
 })
 
