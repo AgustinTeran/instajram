@@ -18,22 +18,31 @@ var httpServer = require("http").createServer(server)
 
 var {Server} = require("socket.io")
 var io = new Server(httpServer,{
-    cors: "*"
+    cors: "*",
+    
 })
 
 io.use((socket,next) => {
     var id = socket.handshake.query.id
 
     
-    const socketsConectados = io.sockets.sockets;
-    const usuariosConectados = Array.from(socketsConectados.keys())
+    var socketsConectados = io.sockets.sockets;
+    var usuariosConectados = Array.from(socketsConectados).map(e => ({id: e[0],userId: e[1].userId}))
     
-    if(usuariosConectados.includes(id)){
-        socket.to(id).emit("duplicado")
+    var usuariosDuplicados = usuariosConectados.filter(e => e.userId === id)
+    if(usuariosDuplicados.length){
+
+        usuariosDuplicados.forEach(e => {
+            const targetSocket = io.sockets.sockets.get(e.id);
+            socket.to(e.id).emit("duplicado")
+            // primero le aviso que se abrio en otra ventana y despues de 2 segundos lo 
+            // desconecto del servidor
+            setTimeout(() => {targetSocket.disconnect()},2000)
+        })
     }
 
 
-    socket.id = id
+    socket.userId = id
 
     next()
 })
@@ -43,9 +52,10 @@ manejadorDeSockets(io)
 
 server.get("/onlineUsers",(req,res) => {
     const socketsConectados = io.sockets.sockets;
+
   
   // Convierte la colección de sockets a un array de IDs
-  const usuariosConectados = Array.from(socketsConectados.keys())
+  const usuariosConectados = Array.from(socketsConectados).map(e => e[1].userId)
 
     res.send(usuariosConectados)
 })

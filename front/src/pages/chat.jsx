@@ -16,9 +16,6 @@ export default function Chat(){
     if(!chats.current.item || chats.current.item.id !== id){
       dispatch(chatsActions.get(id))
     }
-    if(chats.list.items){
-      dispatch(chatsActions.visto(id))
-    }
   },[])
 
   
@@ -31,6 +28,11 @@ export default function Chat(){
         top: ultimoMensaje.current.offsetTop,
         // behavior: 'smooth' 
     });}
+
+    if(chats.list.items){
+      dispatch(chatsActions.visto(id))
+    }
+    
     },[chats.current.item])
 
   return (

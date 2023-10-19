@@ -5,8 +5,8 @@ import messageHandler from "./handlers/message"
 
 
 
-export function onConect(id){
-  const socket = io("http://localhost:3001",{
+export function onConect(id,setDuplicado){
+  const socket = io("https://instajram-l8bb.vercel.app",{
     query: {
       id
     }
@@ -15,8 +15,7 @@ export function onConect(id){
   socket.connect()
 
   socket.on("duplicado",() => {
-    console.log("AA");
-    alert("Duplicado")
+    setDuplicado(true)
   })
 
   
