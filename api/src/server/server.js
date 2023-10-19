@@ -10,11 +10,6 @@ server.use(cors({
     credentials: true
 }))
 
-server.use((req, res, next) => {
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-  
 
 server.use("/",router)
 
@@ -25,7 +20,8 @@ var {Server} = require("socket.io")
 var io = new Server(httpServer,{
     cors: {
         origin: "https://instajram.vercel.app",
-        methods: ["GET","POST"]
+        methods: ["GET","POST"],
+        credentials: true
     },
     
     
