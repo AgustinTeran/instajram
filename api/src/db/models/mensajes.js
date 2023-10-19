@@ -15,7 +15,7 @@ module.exports = s => {
             defaultValue: false
         },
         para: {
-            type: DataTypes.STRING
+            type: DataTypes.UUID,
         }
     })
 }

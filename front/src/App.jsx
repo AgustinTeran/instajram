@@ -6,6 +6,8 @@ import BigLoader from "./components/commons/bigLoader";
 import 'react-toastify/dist/ReactToastify.css';
 import UsersRoutes from "./routes/UsersRoutes";
 import { onConect } from "./socket.io";
+import socketActions from "./redux/socket.io/actions";
+import chatsActions from "./redux/chats/actions";
 
 
 
@@ -27,11 +29,14 @@ function App() {
     } 
   },[])
 
-  // useEffect(() => {
-  //   if(auth.user){
-  //     onConect(auth.user.id).emit("getUserOnline")
-  //   }
-  // },[auth.user])
+  useEffect(() => {
+    if(auth.user){
+      var socket = onConect(auth.user.id)
+
+      dispatch(socketActions.setSocket(socket))
+      dispatch(chatsActions.getAll())
+    }
+  },[auth.user])
 
   useEffect(() => {
     if(auth.error && auth.error === "No autorizado"){
