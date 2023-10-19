@@ -5,7 +5,7 @@ import messageHandler from "./handlers/message"
 
 
 
-export function onConect(id){
+export function onConect(id,setDuplicado){
   const socket = io("https://instajram-l8bb.vercel.app",{
     query: {
       id
@@ -15,11 +15,10 @@ export function onConect(id){
 
   socket.connect()
 
-  
-  socket.on("duplicado",(message) => {
-    alert(message)
-    // confirm("Ya esta abierto en otra pestaña")
+  socket.on("duplicado",() => {
+    setDuplicado(true)
   })
+
   
   messageHandler(socket)
 

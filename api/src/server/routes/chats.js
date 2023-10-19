@@ -64,6 +64,8 @@ route.get("/chat",autenticacionToken,async(req,res) => {
         //   el usuario logueado y el chat con un usuario determinado
         var {id} = req.query
 
+        console.log(id,userId);
+
         var chats = await sequelize.models.mensajes.findAll({
             where: {
                 [Op.or]: [
