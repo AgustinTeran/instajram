@@ -9,7 +9,8 @@ export function onConect(id,setDuplicado){
   const socket = io("https://instajram-l8bb.vercel.app",{
     query: {
       id
-    }
+    },
+    withCredentials: true
   })
 
   socket.connect()
