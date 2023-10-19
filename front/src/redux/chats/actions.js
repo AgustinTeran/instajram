@@ -16,7 +16,7 @@ function get(id){
     dispatch({type: types.GET_REQUEST})
 
     back.get(`${backRoutes.CHATS}/chat?id=${id}`,{headers: {token: localStorage.getItem("token")}})
-    .then(res => dispatch({type: types.GET_SUCCESS, payload: res.data}))
+    .then(res => dispatch({type: types.GET_SUCCESS, payload: {id, chat: res.data}}))
     .catch(err => dispatch({type: types.GET_FAILURE, error: err.response.data}))
   }
 }
@@ -31,20 +31,31 @@ function getAll(){
   }
 }
 
+function newMessage(chat,emisorName){
+  return {
+    type: types.UPDATE_CHATS,
+    payload: {...chat,emisorName}
+  }
+}
 
-function post(mensaje,destinatario){
-  return function(dispatch){
-    dispatch({type: types.POST_REQUEST})
 
-    back.post(`${backRoutes.CHATS}`,{mensaje, mensajeA: destinatario},{headers: {token: localStorage.getItem("token")}})
-    .then(() => console.log("Se envio"))
-    .catch(() => console.error("Hubo un error al enviar el mensaje"))
+function recived(chat){
+  return {
+    type: types.RECEIVED_MESSAGE,
+    payload: chat
+  }
+}
+
+function send(chat){
+  return {
+    type: types.SEND_MESSAGE,
+    payload: chat
   }
 }
 
 function visto(destinatario){
   return function(dispatch){
-    dispatch({type: types.VISTO_REQUEST})
+    dispatch({type: types.VISTO_REQUEST,payload: destinatario})
 
     back.post(`${backRoutes.CHATS}/visto`,{usuarioQEnvio: destinatario},{headers: {token: localStorage.getItem("token")}})
     .then(() => console.log("Visto"))
@@ -59,6 +70,8 @@ export default {
   clearCurrent,
   get,
   getAll,
-  post,
   visto,
+  send,
+  recived,
+  newMessage,
 }
