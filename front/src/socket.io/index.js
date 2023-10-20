@@ -6,10 +6,11 @@ import messageHandler from "./handlers/message"
 
 
 export function onConect(id,setDuplicado){
-  const socket = io("https://instajram-l8bb.vercel.app",{
+  const socket = io("https://localhost:3001",{
     query: {
       id
     },
+    transports: ['websocket','polling','flashsocket'],
     withCredentials: true
   })
 

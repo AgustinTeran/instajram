@@ -3,7 +3,7 @@ import axios from "axios";
 // import routes from "./routes";
 
 export var back = axios.create({
-    baseURL: "https://instajram-l8bb.vercel.app"
+    baseURL: "http://localhost:3001"
 })
 
 // export var backRoutes

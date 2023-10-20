@@ -12,17 +12,17 @@ var sequelize = new Sequelize({
     username: `${USER_DB}`,
     password: `${PASSWORD}`,
     logging: false,
-    pool: {
-      max: 3
-    },
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-      keepAlive: true,
-    },
-    ssl: true,
+    // pool: {
+    //   max: 3
+    // },
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false,
+    //   },
+    //   keepAlive: true,
+    // },
+    // ssl: true,
   })
 
 
