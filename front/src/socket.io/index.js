@@ -10,7 +10,7 @@ export function onConect(id,setDuplicado){
     query: {
       id
     },
-    // withCredentials: true
+    transports: ['websocket','polling','flashsocket']
   })
 
   socket.connect()

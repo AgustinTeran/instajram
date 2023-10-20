@@ -8,7 +8,6 @@ server.use(express.json())
 server.use(cors({
     origin: "*",
     credentials: true,
-    allowedHeaders: "*"
 }))
 
 
