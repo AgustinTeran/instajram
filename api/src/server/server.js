@@ -7,9 +7,13 @@ var router = require("./routes/router")
 server.use(express.json())
 server.use(cors({
     origin: "https://instajram.vercel.app",
-    credentials: true,
-    allowedHeaders: true
+    credentials: true
 }))
+
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 
 server.use("/",router)
