@@ -30,6 +30,18 @@ var io = new Server(httpServer,{
     
 })
 
+io.use((socket, next) => {
+    // Configuración de CORS específica para Socket.IO
+    socket.handshake.headers.origin = "https://instajram.vercel.app";
+    socket.handshake.headers['Access-Control-Allow-Origin'] = "https://instajram.vercel.app";
+    socket.handshake.headers['Access-Control-Allow-Methods'] = "GET, POST";
+    socket.handshake.headers['Access-Control-Allow-Headers'] = "Content-Type, token";
+    socket.handshake.headers['Access-Control-Allow-Credentials'] = "true";
+
+    // Continuar con la conexión
+    next();
+});
+
 io.use((socket,next) => {
     var id = socket.handshake.query.id
 
