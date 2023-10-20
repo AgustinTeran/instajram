@@ -8,7 +8,7 @@ server.use(express.json())
 server.use(cors({
     origin: "https://instajram.vercel.app",
     credentials: true,
-    allowedHeaders: ["Content-Type", "token"]
+    allowedHeaders: "*"
 }))
 server.options('*', cors());
 
@@ -23,8 +23,7 @@ var io = new Server(httpServer,{
     cors: {
         origin: "https://instajram.vercel.app",
         methods: ["GET","POST"],
-        credentials: true,
-        allowedHeaders: "*"
+        credentials: true
     },
 
     
