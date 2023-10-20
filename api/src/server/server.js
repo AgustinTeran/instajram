@@ -23,7 +23,8 @@ var io = new Server(httpServer,{
     cors: {
         origin: "https://instajram.vercel.app",
         methods: ["GET","POST"],
-        credentials: true
+        credentials: true,
+        allowedHeaders: ["Content-Type", "token"]
     },
 
     

@@ -10,7 +10,8 @@ export function onConect(id,setDuplicado){
     query: {
       id
     },
-    withCredentials: true
+    withCredentials: true,
+    extraHeaders: localStorage.getItem("token")
   })
 
   socket.connect()
