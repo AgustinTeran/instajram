@@ -24,7 +24,7 @@ var io = new Server(httpServer,{
         origin: "https://instajram.vercel.app",
         methods: ["GET","POST"],
         credentials: true,
-        allowedHeaders: ["Content-Type", "token","160"]
+        allowedHeaders: "*"
     },
 
     
