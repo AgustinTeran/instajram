@@ -6,7 +6,7 @@ var router = require("./routes/router")
 
 server.use(express.json())
 server.use(cors({
-    origin: "https://instajram.vercel.app",
+    origin: "*",
     credentials: true,
     allowedHeaders: "*"
 }))
@@ -20,9 +20,7 @@ var httpServer = require("http").createServer(server)
 var {Server} = require("socket.io")
 var io = new Server(httpServer,{
     cors: {
-        origin: "https://instajram.vercel.app",
-        methods: ["GET","POST"],
-        // credentials: true
+        origin: "*"
     }, 
 })
 
