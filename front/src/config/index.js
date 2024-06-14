@@ -3,7 +3,7 @@ import axios from "axios";
 // import routes from "./routes";
 
 export var back = axios.create({
-    baseURL: "http://localhost:3001"
+    baseURL: "https://instajram.onrender.com"
 })
 
 // export var backRoutes
