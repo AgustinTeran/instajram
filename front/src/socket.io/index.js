@@ -6,7 +6,7 @@ import messageHandler from "./handlers/message"
 
 
 export function onConect(id,setDuplicado){
-  const socket = io("http://localhost:3001",{
+  const socket = io("https://instajram.onrender.com",{
     query: {
       id
     },
