@@ -45,8 +45,9 @@ export default function Profile(){
       </div>
       {
         user.item.seguidoPor.find(e => e.id === auth.user?.id) && (
-          <div className="flex justify-center mt-5 px-2">
-            <button onClick={() => dispatch(userActions.unFollow(auth.user.id,user.item.id))} className="btn btn-sm btn-secondary max-w-[360px] w-full">Dejar de Seguir</button>
+          <div className="flex justify-center mt-5 px-2 gap-2 flex-wrap">
+            <Link to={`/chat/${user.item.id}`} className="btn btn-sm btn-secondary max-w-[180px] w-full flex-1 min-w-fit">Enviar mensaje</Link>
+            <button onClick={() => dispatch(userActions.unFollow(auth.user.id,user.item.id))} className="btn btn-sm btn-secondary max-w-[180px] w-full flex-1 min-w-fit">Dejar de Seguir</button>
           </div>
         )
       }
