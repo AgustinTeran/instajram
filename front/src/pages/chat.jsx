@@ -37,7 +37,7 @@ export default function Chat(){
 
   return (
     <>
-    <Main className={`h-[calc(100%-50px)] pb-32`}>
+    <Main className={`h-[calc(100%-128px)] pb-32`}>
       {
         !chats.current.item || chats.current.loading && <span>Loading</span>
       }
