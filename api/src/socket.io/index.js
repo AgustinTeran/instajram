@@ -5,7 +5,7 @@
 module.exports = (io) => { 
   io.on("connection",(socket) => {
 
-    require("./handlers/message")(socket)
+    require("./handlers/message")(socket,io)
     
   })
 

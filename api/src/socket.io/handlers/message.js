@@ -1,6 +1,6 @@
 var {sequelize} = require("../../db/db")
 
-module.exports = (socket) => {
+module.exports = (socket,io) => {
   socket.on("message",async(message,destinatario,emisor,emisorName) => {
 
     try {
@@ -10,6 +10,12 @@ module.exports = (socket) => {
     }
 
     socket.emit("messageSent",chat)
-    socket.to(destinatario).emit("message",chat,emisor,emisorName)
+
+    var usuariosConectados = Array.from(io.sockets.sockets).map(e => ({id: e[1].id,userId: e[1].userId}));
+    var destinatarioOnline = usuariosConectados.find(e => e.userId === destinatario)
+
+    if(destinatarioOnline){
+      socket.to(destinatarioOnline.id).emit("message",chat,emisor,emisorName)
+    }
   })
 }
