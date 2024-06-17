@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import chatsActions from "../redux/chats/actions"
 import { FaRegPaperPlane } from "react-icons/fa6";
+import Loader from "../components/commons/loader";
 
 
 
@@ -29,7 +30,7 @@ export default function Chat(){
         // behavior: 'smooth' 
     });}
 
-    if(chats.list.items){
+    if(chats.list.items && chats.list.items.find(e => e.usuario === id)){
       dispatch(chatsActions.visto(id))
     }
     
@@ -39,7 +40,7 @@ export default function Chat(){
     <>
     <Main className={`h-[calc(100%-128px)] pb-32`}>
       {
-        !chats.current.item || chats.current.loading && <span>Loading</span>
+        !chats.current.item || chats.current.loading && <Loader/>
       }
       {
         chats.current.item && !chats.current.loading && (
