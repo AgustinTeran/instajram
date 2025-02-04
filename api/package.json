@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rm -f server-ready && node . & wait-on server-ready --timeout 45000"
+    "start": "rm -f server-ready && node . & npx wait-on server-ready --timeout 45000"
   },
   "author": "",
   "license": "ISC",
