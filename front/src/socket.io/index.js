@@ -6,7 +6,7 @@ import messageHandler from "./handlers/message"
 
 
 export function onConect(id,setDuplicado){
-  const socket = io("https://instajram.onrender.com",{
+  const socket = io("https://instajram-production.up.railway.app",{
     query: {
       id
     },
